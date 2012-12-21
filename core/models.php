@@ -3,10 +3,20 @@
 class Orm{
 
 	protected static $tablename = '';
+	private static $connection;
 
 
 	public static function find_all(){
-		echo self::$tablename;
+		$connection = self::$connection;
+		$tablename = self::$tablename;
+		if($connection != null){
+			$query = $connection->query("SELECT * FROM $tablename")->execute();
+			if($query)
+				$query->fetch();
+		}
+			
+		
+		
 		
 	}
 	
@@ -23,7 +33,18 @@ class Orm{
 		// PDO init
 		$ini = ROOT.'/config/database/config.ini' ;
 		$config = parse_ini_file ( $ini , true );
-		
+		if (class_exists('PDO')){
+			try{
+				self::$connection = new PDO($config['driver'].':host='.$config['host'].';port='.$config['port'].';dbname='.$config['database'], $config['user'], $config['password']);
+			}
+			catch(Exception $e){
+				echo $e->getMessage();
+			}
+			
+		}
+		else{
+			echo 'PDO is not enabled on your server';
+		}
 		
 		return new self;
 	}
