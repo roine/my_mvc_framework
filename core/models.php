@@ -10,7 +10,14 @@ class Orm{
 		// handle the magic find_by
 		$arrMeth = explode('_', $meth);
 		if($arrMeth[0] == 'find' && $arrMeth[1] == 'by'){
-			return self::find_by($arrMeth[2], $argv);
+			try{
+				self::find_by($arrMeth[2], $argv);	
+			}
+			catch(Exception $e){
+				echo $e->getMessage();
+				print_r($e->getTrace());
+			}
+			
 		}
 
 	}
@@ -18,10 +25,24 @@ class Orm{
 	private function find_by($filter, $value){
 		$connection = self::$connection;
 		$tablename = self::$tablename;
-		if(count($value) < 1)
-			throw new Exception('no parameter into your find_by_'+$filter);
+		if(count($value) == 0)
+			throw new Exception('no parameter into your find_by_'.$filter);
 		else{
 			
+			// if user use find_by_id(array(1,2))
+			if(gettype($value[0]) == 'array'){
+				$cond = array_fill(0, count($value[0]), ' ? = ? ');
+				// $arrValues = array_fill(0, count())
+			}
+			// if user use find_by_id(1,2)
+			else if(count($value) > 1){
+				$cond = array_fill(0, count($value), ' ? = ? ');
+				$arrValues = array_fill(0, count($value), "$");
+			}
+
+			$sCond = implode(' OR ',$cond);
+			
+			echo $sCond;
 			$connection->prepare('SELECT * FROM :tablename WHERE ()');
 		}
 		
