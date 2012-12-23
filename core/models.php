@@ -25,25 +25,29 @@ class Orm{
 	private function find_by($filter, $value){
 		$connection = self::$connection;
 		$tablename = self::$tablename;
+		$params = array();
+
+		// throw error if no arguments
 		if(count($value) == 0)
 			throw new Exception('no parameter into your find_by_'.$filter);
 		else{
-			
-			// if user use find_by_id(array(1,2))
-			if(gettype($value[0]) == 'array'){
-				$cond = array_fill(0, count($value[0]), ' ? = ? ');
-				// $arrValues = array_fill(0, count())
-			}
-			// if user use find_by_id(1,2)
-			else if(count($value) > 1){
-				$cond = array_fill(0, count($value), ' ? = ? ');
-				$arrValues = array_fill(0, count($value), "$");
-			}
-
+			// count the number of arguments
+			$value = gettype($value[0]) === 'array' ? $value[0] : $value;
+			// prepare the query
+			$cond = array_fill(0, count($value), ' ? = ? ');
 			$sCond = implode(' OR ',$cond);
-			
-			echo $sCond;
-			$connection->prepare('SELECT * FROM :tablename WHERE ()');
+
+			// populate with tablename first
+			// $params[] = $tablename;
+			// populate with the filters
+			foreach($value as $v){
+				$params[] = $filter;
+				$params[] = $v;
+			}
+			$sql = "SELECT * FROM $tablename WHERE ( {$sCond} )";
+			$result = $connection->prepare($sql)->execute($params)->fetch();
+
+			// $connection;
 		}
 		
 
@@ -82,9 +86,6 @@ class Orm{
 			// ...else get the table name from the model name
 			self::$tablename = $tablename = implode(',', self::$tablename = array_slice(explode('_', get_called_class()), 1));
 		}
-
-		
-
 
 		// PDO init
 		$ini = ROOT.'/config/database/config.ini' ;
