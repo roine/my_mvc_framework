@@ -4,7 +4,7 @@ if(isset($_GET['argv']) && !empty($_GET['argv'])){
 	
 	// set the vars to empty
 	$controller = $method = '';
-	$params = [];
+	$params = array();
 
 	// autoload the current controller
 	function __autoload($class) {
