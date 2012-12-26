@@ -2,7 +2,7 @@
 	define('ROOT', dirname(__DIR__));
 	define('CORE_ROOT', ROOT.DIRECTORY_SEPARATOR.'core');
 	define('APP_ROOT', ROOT.DIRECTORY_SEPARATOR.'app');
-
+	define('CONFIG_ROOT', ROOT.DIRECTORY_SEPARATOR.'config');
 	// check whether mod_rewrite is actiivated
 	if (function_exists('apache_get_modules')) {
 	  	$modules = apache_get_modules();
