@@ -8,10 +8,11 @@ class Orm {
 	public static function __callStatic( $meth, $argv ) {
 		// handle the magic find_by
 		$arrMeth = explode( '_', $meth );
+		self::init();
 		if ( $arrMeth[0] == 'find' && $arrMeth[1] == 'by' ) {
 			try{
 
-				return self::find_by( $arrMeth[2], $argv );
+				return self::_find_by( $arrMeth[2], $argv );
 			}
 			catch( Exception $e ) {
 				echo $e->getMessage();
@@ -23,7 +24,8 @@ class Orm {
 
 	}
 
-	private static function find_by( $filter, $value, $tablename = null ) {
+	private static function _find_by( $filter, $value, $tablename = null ) {
+
 		$connection = self::$connection;
 		$tablename = $tablename ?: self::$tablename;
 		$params = array();
@@ -46,6 +48,10 @@ class Orm {
 
 					return $result->fetchAll( \PDO::FETCH_ASSOC );
 				}
+				else{
+		echo 'df';
+
+				}
 			}
 			catch( Exception $e ) {
 				die( $e->getMessage() );
@@ -53,7 +59,7 @@ class Orm {
 		}
 	}
 
-	public static function find_all() {
+	private static function _find_all() {
 		$connection = self::$connection;
 		$tablename = self::$tablename;
 		$existsTable = self::existsTable( $tablename, $connection );
@@ -78,16 +84,12 @@ class Orm {
 
 	public static function init( $tablename = null ) {
 
-
-		if ( gettype( $tablename ) == 'string' && !empty( $tablename ) ) {
-			// if table defined then set the table name
-			self::$tablename = $tablename;
-		}
-		else {
+		if($tablename == null){
 			// ...else get the table name from the model name
-			self::$tablename = $tablename = implode( ',', self::$tablename = array_slice( explode( '_', get_called_class() ), 1 ) );
+			self::$tablename = $tablename = implode( ',', self::$tablename = array_slice( explode( '_', get_called_class() ), 1 ) );	
 		}
-
+		$tablename = strtolower(self::$tablename);
+		
 		// PDO init
 		$ini = ROOT.'/config/database/config.ini' ;
 		$config = parse_ini_file( $ini , true );
@@ -105,7 +107,36 @@ class Orm {
 		else {
 			echo 'PDO is not enabled on your server';
 		}
-
+		if(!self::existsTable($tablename, self::$connection))
+			self::$tablename = self::pluralize($tablename);
 		return new self;
+	}
+
+	public static function pluralize($str){
+		$plural = array(
+            array( '/(quiz)$/i',               "$1zes"   ),
+	        array( '/^(ox)$/i',                "$1en"    ),
+	        array( '/([m|l])ouse$/i',          "$1ice"   ),
+	        array( '/(matr|vert|ind)ix|ex$/i', "$1ices"  ),
+	        array( '/(x|ch|ss|sh)$/i',         "$1es"    ),
+	        array( '/([^aeiouy]|qu)y$/i',      "$1ies"   ),
+	        array( '/([^aeiouy]|qu)ies$/i',    "$1y"     ),
+            array( '/(hive)$/i',               "$1s"     ),
+            array( '/(?:([^f])fe|([lr])f)$/i', "$1$2ves" ),
+            array( '/sis$/i',                  "ses"     ),
+            array( '/([ti])um$/i',             "$1a"     ),
+            array( '/(buffal|tomat)o$/i',      "$1oes"   ),
+            array( '/(bu)s$/i',                "$1ses"   ),
+            array( '/(alias|status)$/i',       "$1es"    ),
+            array( '/(octop|vir)us$/i',        "$1i"     ),
+            array( '/(ax|test)is$/i',          "$1es"    ),
+            array( '/s$/i',                    "s"       ),
+            array( '/$/',                      "s"       )
+        );
+
+		foreach ( $plural as $pattern ){
+        if ( preg_match( $pattern[0], $str ) )
+            return preg_replace( $pattern[0], $pattern[1], $str );
+        }
 	}
 }

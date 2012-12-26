@@ -1,5 +1,5 @@
 <?php
-class Model_home extends Orm{
+class Model_Home extends Orm{
 	
 
 

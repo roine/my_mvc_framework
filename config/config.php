@@ -1,6 +1,6 @@
 <?php
 $config = array(
-	'paths' => array(
+	'path' => array(
 		'assets' => array(
 			'js' => '/assets/js',
 			'css' => '/assets/css'

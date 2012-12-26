@@ -73,4 +73,9 @@ class OrmTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals($this->object->init('a'), $this->object);
     }
+
+    public function testPluralize(){
+        $this->assertEquals($this->object->pluralize('user'), 'users');
+        $this->assertEquals($this->object->pluralize('repository'), 'repositories');
+    }
 }
