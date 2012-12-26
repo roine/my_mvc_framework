@@ -13,7 +13,7 @@ if(isset($_GET['argv']) && !empty($_GET['argv'])){
 		// required by controllers and models
 		require_once(CORE_ROOT.DIRECTORY_SEPARATOR.'base.php');
 		require_once(CORE_ROOT.DIRECTORY_SEPARATOR.'orm.php');
-
+		require_once(CORE_ROOT.DIRECTORY_SEPARATOR.'config.php');
 		// explode the class, if more than 1 value then the first value is the path
 		$class = explode('_', $class);
 		$path = (count($class) == 1) ? 'controller' : $class[0];
