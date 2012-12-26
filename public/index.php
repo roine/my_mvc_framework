@@ -11,7 +11,7 @@
 	  	$mod_rewrite =  getenv('HTTP_MOD_REWRITE')=='On' ? true : false ;
 	}
 	if(!$mod_rewrite){
-		echo 'mod rewrite off!';
+		exit('mod rewrite off!');
 	}
 	
 	require('../core/bootstrap.php');
