@@ -29,13 +29,6 @@ class Config{
 			print_r($conf);
 			echo '<pre>';
 			print_r(self::$config);
-			$str = [];
-			foreach($conf as $k => $v){
-				$config[$k];
-
-			}
-
-			
 		}
 	}
 

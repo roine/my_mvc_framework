@@ -14,10 +14,11 @@ if(isset($_GET['argv']) && !empty($_GET['argv'])){
 		require_once(CORE_ROOT.DIRECTORY_SEPARATOR.'base.php');
 		require_once(CORE_ROOT.DIRECTORY_SEPARATOR.'orm.php');
 		require_once(CORE_ROOT.DIRECTORY_SEPARATOR.'config.php');
-		// explode the class, if more than 1 value then the first value is the path
+		// explode the class, if more than 1 value then the first value is the path classes 
+		// should be in this format Model_User for model and User for controller
 		$class = explode('_', $class);
-		$path = (count($class) == 1) ? 'controller' : $class[0];
-		$class = $path == 'controller' ? $class[0] : $class[1];
+		$path = (count($class) === 1) ? 'controller' : $class[0];
+		$class = $path === 'controller' ? $class[0] : $class[1];
 		// try loading the controller if file do not exists throw exception
 	    if(!@include APP_ROOT.'/classes/'.$path.'s/'.$class.'.php'){
 	    	throw new \Exception('Failed to load '.APP_ROOT.'/classes/controller/'.$class.'.php');
