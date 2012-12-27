@@ -2,7 +2,7 @@
 
 class Config{
 
-	private static $config = [];
+	private static $config = array();
 	// static construtor
 	public static function __callStatic($meth, $arg){
 		// add the config file
@@ -12,7 +12,7 @@ class Config{
 		$meth = '_'.$meth;
 		
 		if(method_exists(__CLASS__, $meth))
-			self::$meth(implode('.', $arg));
+			return self::$meth(implode('.', $arg));
 		else
 			throw new Exception('The method '.$meth.' doesn\'t exists');
 	}
@@ -25,10 +25,12 @@ class Config{
 		}
 		else{
 			$conf = explode('.', $params);
-			echo '<pre>';
-			print_r($conf);
-			echo '<pre>';
-			print_r(self::$config);
+
+			$temp = self::$config;
+			foreach($conf as $key) {
+			   $temp = $temp[$key];
+			}
+			return $temp;
 		}
 	}
 

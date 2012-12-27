@@ -3,6 +3,7 @@
 class Base{
 
 	protected static $template = 'default';
+	private static $css = array();
 
 	public static function __callStatic($meth, $arg){
 		$meth = '_'.$meth;
@@ -16,6 +17,8 @@ class Base{
 	public static function _render($view, $data = null){
 
 	}
+
+	
 
 
 
