@@ -10,19 +10,26 @@ if(isset($_GET['argv']) && !empty($_GET['argv'])){
 	function __autoload($class) {
 		$class = strtolower($class);
 
-		// required by controllers and models
+		// core files
 		require_once(CORE_ROOT.DIRECTORY_SEPARATOR.'base.php');
 		require_once(CORE_ROOT.DIRECTORY_SEPARATOR.'orm.php');
 		require_once(CORE_ROOT.DIRECTORY_SEPARATOR.'config.php');
+		require_once(CORE_ROOT.DIRECTORY_SEPARATOR.'utils.php');
+		require_once(CORE_ROOT.DIRECTORY_SEPARATOR.'database.php');
+
 		// explode the class, if more than 1 value then the first value is the path classes 
 		// should be in this format Model_User for model and User for controller
 		$class = explode('_', $class);
+
 		// if the array has only one value then it's the controller, set the path to 'controller'
 		$path = (count($class) === 1) ? 'controller' : $class[0];
+
+		// if it's a controller then the first value is the class name else it's the second
 		$class = $path === 'controller' ? $class[0] : $class[1];
+
 		// try loading the controller if file do not exists throw exception
-	    if(!@include APP_ROOT.'/classes/'.$path.'s/'.$class.'.php'){
-	    	throw new \Exception('Failed to load '.APP_ROOT.'/classes/controller/'.$class.'.php');
+	    if(!@include APP_ROOT.'/classes/'.Utils::pluralize($path).'/'.$class.'.php'){
+	    	throw new \Exception('Failed to load '.APP_ROOT.'/'.Utils::pluralize($path).'/'.$class.'.php');
 	    }
 
 	}

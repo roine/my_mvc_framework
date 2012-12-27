@@ -27,8 +27,14 @@ class Config{
 			$conf = explode('.', $params);
 
 			$temp = self::$config;
+
 			foreach($conf as $key) {
-			   $temp = $temp[$key];
+				if(isset($temp[$key]))
+				   $temp = $temp[$key];
+				else{
+					throw new Exception('The config path doesn\'t exists for '.$key);
+				}
+
 			}
 			return $temp;
 		}
