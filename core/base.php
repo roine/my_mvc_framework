@@ -1,25 +1,21 @@
-<?php 
+<?php
 // base controller
-class Base{
+class Base {
 
-	protected static $template = 'default';
-	private static $css = array();
+	protected  $template = 'default';
+	private $css = array();
+	private $js = array();
 
-	public static function __callStatic($meth, $arg){
-		$meth = '_'.$meth;
-		if(method_exists(__CLASS__, $meth))
-			self::$meth(implode(',', $arg));
-		else
-			throw new Exception('The method '.$meth.' doesnt exists');
+	public function view( $view = NULL, $data = '' ) {
+		if ( $view == NULL )
+			throw new \Exception( 'no view defined' );
+
+		if ( gettype( $data ) == 'array' && count( $data ) < 1 )
+			throw new \Exception( 'Parameters empty' );
+
+		require(APP_ROOT.DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR."templates".DIRECTORY_SEPARATOR.$this->template.".php");
+
 	}
-
-	// render the data to a view
-	private static function _render($view, $data = null){
-
-	}
-
-	
-
 
 
 }

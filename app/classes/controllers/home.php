@@ -6,6 +6,8 @@ class Home extends Base{
 		print_r(Model_users::find_all());
 		Model_users::update(6, array('email' => 'sophie@joso.com', 'username' => 'so'));
 
+		$this->view('home/index');
+
 		if(count($params) > 0)
 			echo 'hello '.implode(',',$params);
 	}

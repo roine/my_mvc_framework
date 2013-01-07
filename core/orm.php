@@ -38,7 +38,7 @@ class Orm {
 				}
 			}
 			else if ( !isset( $arrMeth[2] ) || empty( $arrMeth[2] ) ) {
-					throw new Exception( 'The method find_by doesn\'t exists' );
+					throw new \Exception( 'The method find_by doesn\'t exists' );
 				}
 		}
 
@@ -54,7 +54,7 @@ class Orm {
 		$tablename = self::$tablename;
 
 		if ( !Db::isUniqueField( $tablename, $filter, $connection ) )
-			throw new Exception( 'it is not field type UNIQUE so you cannot search by '.$filter );
+			throw new \Exception( 'it is not field type UNIQUE so you cannot search by '.$filter );
 		// if double array an array has been use as argument, extract it
 		$value = ( gettype( $value[0] ) === 'array' ) ? $value[0] : $value;
 		// check whether the table exists
@@ -62,7 +62,7 @@ class Orm {
 
 		// throw error if no arguments
 		if ( count( $value ) == 0 ) {
-			throw new Exception( 'no parameter into your find_by_'.$filter );
+			throw new \Exception( 'no parameter into your find_by_'.$filter );
 		}
 		else {
 			$value = ( gettype( $value ) === 'string' ) ? explode( ',', $value ) : $value;
@@ -81,7 +81,7 @@ class Orm {
 
 				}
 			}
-			catch( Exception $e ) {
+			catch( \Exception $e ) {
 				die( $e->getMessage() );
 			}
 		}
@@ -117,7 +117,7 @@ class Orm {
 		$tablename = self::setTableName();
 
 		if ( gettype( $data ) !== 'array' ) {
-			throw new Exception( 'parameter must be an array' );
+			throw new \Exception( 'parameter must be an array' );
 		}
 		else if ( count( $data ) == 0 ) {
 				throw new Exception( 'no paramaters or empty array' );
@@ -132,25 +132,25 @@ class Orm {
 		}
 	}
 
-	public static function update($id, $data = array()){
+	public static function update( $id, $data = array() ) {
 		$connection = self::$connection ? self::$connection : self::setConnection();
 		$tablename = self::setTableName();
 		$id = (int)$id;
-		$columns = array_keys($data);
-		$values = array_values($data);
-		$prepare = implode('=?, ', $columns).'=?';
+		$columns = array_keys( $data );
+		$values = array_values( $data );
+		$prepare = implode( '=?, ', $columns ).'=?';
 
 		$sql = "UPDATE {$tablename} SET {$prepare} WHERE id={$id}";
 		try{
 
-			$query = $connection->prepare($sql);
-			$query->bindParam(":id", $id);
-			$query->execute($values);
+			$query = $connection->prepare( $sql );
+			$query->bindParam( ":id", $id );
+			$query->execute( $values );
 		}
-		catch(PDOException $e){
+		catch( \PDOException $e ) {
 			echo $e->getMessage();
 		}
-		
+
 	}
 
 }
