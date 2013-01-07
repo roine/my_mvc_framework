@@ -47,8 +47,7 @@ if(isset($_GET['argv']) && !empty($_GET['argv'])){
  	$method = ($argc > 1 && !empty($argv[1])) ? 'view_'.$argv[1] : 'view_index';
 
  	// if three or more arguments set the rest to params
- 	$params = ($argc < 2 ) ?: array_slice($argv, 2);
-
+ 	$params = ($argc < 1 ) ?: array_slice($argv, 2);
  	try{
 		if(class_exists($controller)){
 		 	$c = new $controller();

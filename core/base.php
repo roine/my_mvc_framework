@@ -1,5 +1,5 @@
 <?php 
-
+// base controller
 class Base{
 
 	protected static $template = 'default';
@@ -14,7 +14,7 @@ class Base{
 	}
 
 	// render the data to a view
-	public static function _render($view, $data = null){
+	private static function _render($view, $data = null){
 
 	}
 

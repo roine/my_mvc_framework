@@ -3,6 +3,7 @@
 class Config{
 
 	private static $config = array();
+
 	// static construtor
 	public static function __callStatic($meth, $arg){
 		// add the config file
@@ -18,7 +19,7 @@ class Config{
 	}
 
 
-	public static function _load($params = ''){
+	private static function _load($params = ''){
 		
 		if(empty($params)){
 			throw new Exception('No params have been set');
