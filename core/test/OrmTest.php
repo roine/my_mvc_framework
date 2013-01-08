@@ -35,9 +35,7 @@ class OrmTest extends PHPUnit_Framework_TestCase
     public function test__callStatic()
     {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        
 
     }
 
@@ -65,17 +63,5 @@ class OrmTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers Orm::init
-     * @todo   Implement testInit().
-     */
-    public function testInit()
-    {
-        $this->assertEquals($this->object->init('a'), $this->object);
-    }
 
-    public function testPluralize(){
-        $this->assertEquals($this->object->pluralize('user'), 'users');
-        $this->assertEquals($this->object->pluralize('repository'), 'repositories');
-    }
 }

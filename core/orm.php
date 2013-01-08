@@ -1,4 +1,6 @@
+
 <?php
+
 
 class Orm {
 
@@ -41,6 +43,12 @@ class Orm {
 					throw new \Exception( 'The method find_by doesn\'t exists' );
 				}
 		}
+		else if($arrMeth[0] == 'find' && ($arrMeth[1] == 'first' || $arrMeth[1] == 'last')){
+			$order = $arrMeth[1] == 'first' ? "DESC" : 'ASC';
+			return self::_find_edge($argv, $order);
+		}
+		
+
 
 		return 'Something went wrong while using '.$meth;
 	}
@@ -95,6 +103,18 @@ class Orm {
 		if ( $existsTable && $connection ) {
 			return $connection->query( "SELECT * FROM {$tablename}" )->fetchAll( \PDO::FETCH_ASSOC );
 		}
+	}
+
+	private static function _find_edge($limit, $order = "DESC"){
+		$connection = self::$connection ? self::$connection : self::setConnection();
+		$tablename = self::setTableName();
+		$existsTable = self::existsTable( $tablename, $connection );
+		$limit = count($limit) < 1 ? 1 : $limit[0];
+
+		if($existsTable && $connection){
+			return $connection->query("SELECT * FROM {$tablename} ORDER BY id {$order} LIMIT {$limit}")->fetchAll( \PDO::FETCH_ASSOC );
+		}
+
 	}
 
 	public static function delete( $id = null ) {
@@ -152,5 +172,7 @@ class Orm {
 		}
 
 	}
+
+
 
 }

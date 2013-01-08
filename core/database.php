@@ -35,13 +35,17 @@ class Db{
 		return true;
 	}
 
-	public function isUniqueField($tablename, $field, $connection){
+	public static function isUniqueField($tablename, $field, $connection){
 		$query = $connection->query("SHOW INDEXES FROM $tablename WHERE Column_name='$field' AND Non_unique");
 		$query->execute();
 		if(!$query->fetchAll()){
 			return true;
 		}
 		return false;
+	}
+
+	public static function existsRow($tablename, $connection, $data = array()){
+
 	}
 
 }
