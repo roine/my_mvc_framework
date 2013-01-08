@@ -1,0 +1,16 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Jonathan de Montalembert -- In charge of everything -- http://jdemont.com/b
+
+# THANKS
+
+    boilerplate team for making my life easier
+    arvi89 for giving me the idea
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    jQuery, Modernizr
