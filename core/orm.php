@@ -71,9 +71,9 @@ class Orm {
     private static function setConnection() {
         // if the connection is not already set then create it
       if ( gettype( static::$connection ) !== 'object' ) {
-         static::$connection = Db::init();
-     }
- }
+       static::$connection = Db::init();
+   }
+}
 
     /**
      * get the connection, if not call setConnection

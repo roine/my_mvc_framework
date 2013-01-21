@@ -25,7 +25,7 @@ class Db{
 
     /**
      * check whether a table exists
-     * 
+     *
      * @param String $tablename  name of the table.
      * @param Object $connection PDO object.
      *
@@ -34,7 +34,7 @@ class Db{
      *
      * @return boolean Value.
      */
-	private static function existsTable( $tablename, $connection ) 
+	private static function existsTable( $tablename, $connection )
 	{
 		try{
 			$query = $connection->query( "SELECT 1 FROM $tablename" );
@@ -49,7 +49,7 @@ class Db{
 
     /**
      * check whether a column has been set a UNIQUE
-     * 
+     *
      * @param string $tablename  table name.
      * @param string $field      name of the column.
      * @param PDO object $connection PDO object to establish the connection.

@@ -33,18 +33,18 @@ class Utils {
             array( '/(ax|test)is$/i',          "$1es"    ),
             array( '/s$/i',                    "s"       ),
             array( '/$/',                      "s"       )
-        );
+            );
 
-        foreach ( $plural as $pattern ) {
-            if ( preg_match( $pattern[0], $str ) )
-                return preg_replace( $pattern[0], $pattern[1], $str );
-        }
-    }
+foreach ( $plural as $pattern ) {
+    if ( preg_match( $pattern[0], $str ) )
+        return preg_replace( $pattern[0], $pattern[1], $str );
+}
+}
 
 
     /**
-     * pluralize a word with condition 
-     * 
+     * pluralize a word with condition
+     *
      * @param string $str word.
      * @param int    $num condition.
      *
@@ -53,7 +53,7 @@ class Utils {
      *
      * @return string Value.
      */
-    public static function pluralize_if( $str = '', $num = 0 ) 
+    public static function pluralize_if( $str = '', $num = 0 )
     {
         if ( gettype( $num ) !== 'integer' )
             throw new \Exception( 'Second paramater should be a figure' );
