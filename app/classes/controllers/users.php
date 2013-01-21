@@ -3,18 +3,19 @@ class Users extends Base{
 
 	public function view_index()
 	{
-		$users = Model_Users::find_by_email('jonathan@ikonfx.com');
-		$this->view('users/index');
+		$data['users'] = Model_Users::find_all();
+		$this->view('users/index', $data);
 
 	}
 	public function view_view($username)
 	{
+		$data = array();
 		try{
-			$users = Model_Users::find_by_username($username);
+			$data['user'] = Model_Users::find_by_username($username);
 		}
 		catch(Exception $e){
 			$e->getMessage();
 		}
-		print_r($users);
+		$this->view('users/view', $data);
 	}
 }
