@@ -18,8 +18,12 @@ class UtilsTest extends PHPUnit_Framework_TestCase{
     public function testPluralize(){
     	$this->assertEquals($this->object->pluralize('repository'), 'repositories');
     	$this->assertEquals($this->object->pluralize('user'), 'users');
-    	$this->assertEquals($this->object->pluralize('man'), 'men');
-    	$this->assertEquals($this->object->pluralize('test'), 'testes');
+    	$this->assertEquals($this->object->pluralize('test'), 'tests');
+    }
+
+    public function testPluralize_if(){
+        $this->assertEquals($this->object->pluralize_if('repository', 3), '3 repositories');
+        $this->assertEquals($this->object->pluralize_if('repository', 1), '1 repository');
     }
 
 }

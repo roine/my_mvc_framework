@@ -10,10 +10,12 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
+        <!-- templates: http://foundation.zurb.com/templates.php -->
+        <!-- guide for the grid http://foundation.zurb.com/docs/grid.php -->
+        <link rel="stylesheet" href="/assets/css/vendor/foundation.min.css">
         <link rel="stylesheet" href="/assets/css/normalize.css">
         <link rel="stylesheet" href="/assets/css/main.css">
+
         <script src="/assets/js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>

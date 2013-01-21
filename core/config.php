@@ -1,6 +1,9 @@
 <?php
 
+
 class Config{
+
+
 
 	private static $config = array();
 
@@ -11,7 +14,7 @@ class Config{
 		self::$config = $config;
 		// add underscore to call the methods
 		$meth = '_'.$meth;
-		
+
 		if(method_exists(__CLASS__, $meth))
 			return self::$meth(implode('.', $arg));
 		else
@@ -20,7 +23,7 @@ class Config{
 
 
 	private static function _load($params = ''){
-		
+
 		if(empty($params)){
 			throw new Exception('No params have been set');
 		}
@@ -31,7 +34,7 @@ class Config{
 
 			foreach($conf as $key) {
 				if(isset($temp[$key]))
-				   $temp = $temp[$key];
+					$temp = $temp[$key];
 				else{
 					throw new Exception('The config path doesn\'t exists for '.$key);
 				}
@@ -41,5 +44,5 @@ class Config{
 		}
 	}
 
-	
+
 }

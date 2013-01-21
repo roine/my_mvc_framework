@@ -10,7 +10,7 @@ if ( isset( $_GET['argv'] ) && !empty( $_GET['argv'] ) ) {
 	function __autoload( $class ) {
 		$class = strtolower( $class );
 
-		// core files
+		// load core files
 		require_once CORE_ROOT.DIRECTORY_SEPARATOR.'base.php';
 		require_once CORE_ROOT.DIRECTORY_SEPARATOR.'orm.php';
 		require_once CORE_ROOT.DIRECTORY_SEPARATOR.'config.php';

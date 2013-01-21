@@ -23,7 +23,19 @@ class Db{
 		return self::$connection;
 	}
 
-	private static function existsTable( $tablename, $connection ) {
+    /**
+     * check whether a table exists
+     * 
+     * @param String $tablename  name of the table.
+     * @param Object $connection PDO object.
+     *
+     * @access private
+     * @static
+     *
+     * @return boolean Value.
+     */
+	private static function existsTable( $tablename, $connection ) 
+	{
 		try{
 			$query = $connection->query( "SELECT 1 FROM $tablename" );
 			$query->execute();
@@ -35,7 +47,20 @@ class Db{
 		return true;
 	}
 
-	public static function isUniqueField($tablename, $field, $connection){
+    /**
+     * check whether a column has been set a UNIQUE
+     * 
+     * @param string $tablename  table name.
+     * @param string $field      name of the column.
+     * @param PDO object $connection PDO object to establish the connection.
+     *
+     * @access public
+     * @static
+     *
+     * @return boolean Value.
+     */
+	public static function isUniqueField($tablename, $field, $connection)
+	{
 		$query = $connection->query("SHOW INDEXES FROM $tablename WHERE Column_name='$field' AND Non_unique");
 		$query->execute();
 		if(!$query->fetchAll()){
@@ -44,7 +69,8 @@ class Db{
 		return false;
 	}
 
-	public static function existsRow($tablename, $connection, $data = array()){
+	public static function existsRow($tablename, $connection, $data = array())
+	{
 
 	}
 
