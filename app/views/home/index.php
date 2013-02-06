@@ -5,11 +5,7 @@
 <div class="row">
 	<div class="three columns">
 		<div class="panel">
-			<?php foreach($all as $user): ?>
-			<div>
-				<?php echo $user['username']; ?>
-			</div>
-		<?php endforeach; ?>
+			This is a 12 columns responsive grid
 	</div>
 </div>
 <div class="three columns">

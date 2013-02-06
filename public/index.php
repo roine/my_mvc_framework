@@ -1,5 +1,5 @@
 <?php
-
+	define('START_LOADING', microtime(true));
 	define('ROOT', dirname(__DIR__));
 	define('CORE_ROOT', ROOT.DIRECTORY_SEPARATOR.'core');
 	define('APP_ROOT', ROOT.DIRECTORY_SEPARATOR.'app');
