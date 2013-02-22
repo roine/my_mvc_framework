@@ -15,5 +15,9 @@ class Home extends Base{
 			echo 'hello '.implode(',',$params);
 	}
 
+	public function view_contact(){
+		echo 'df';
+	}
+
 
 }

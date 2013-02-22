@@ -8,7 +8,7 @@ check
 	<tbody>
 		<?php  foreach($users as $user): ?>
 		<tr data-id="<?php echo $user['id'];?>">
-			<td><a href="view/<?php echo $user['username'];?>"><?php echo $user['username'];?></a></td>
+			<td><a href="view/users/<?php echo $user['username'];?>"><?php echo $user['username'];?></a></td>
 			<td><?php echo $user['email'];?></td>
 		</tr>
 		<?php endforeach; ?>
