@@ -11,14 +11,15 @@ $params = array();
 // Routes first
 require_once CONFIG_ROOT."/routes.php";
 foreach(Routes::$routes as $from => $to){
-	$then = $replace =
+  // whether use default route or redirect
 	$then = $to['type'] === 'redirect';
 	$replace = $to['type'] === 'replace';
+
 	$arTo = explode('/', $to['path']);
 	$arFrom = explode('/', $from);
 
 	if(count($arTo) !== 2){
-		die('There is a problem with the routes, either don\'t have view or controller');
+		die('There is a problem with the routes, they either don\'t have view or controller');
 	}
 
 	// if the current page is the root and __ROOT__ has been defined in routes configuration

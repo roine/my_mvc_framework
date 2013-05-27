@@ -1,4 +1,6 @@
 <?php
+
+// namespace StoneAge\Controller;
 // base controller
 class Base {
 
@@ -53,36 +55,38 @@ class Base {
      *
      * @return mixed Value.
      */
-	public function view( $view = '', $data = array() ) {
+    public function view( $view = '', $data = array() ) {
 
-		$path = APP_ROOT.'/views/'.$view.'.php';
+      $path = APP_ROOT.'/views/'.$view.'.php';
 
-		if ( $view === '' )
-			throw new \Exception( 'no view defined' );
+      if ( empty( $view ) )
+       throw new \Exception( 'no view defined' );
 
 
-		if(gettype( $data ) !== 'array')
-			throw new \Exception( 'Parameter must be an array' );
+     if( !is_array( $data ) )
+     {
+      throw new \Exception( 'Parameter must be an array' );
+    }
 
-		if ( file_exists( $path ) ) {
-			$this->content =  $this->getRequire( $path, $data );
+    if ( !file_exists( $path ) )
+    {
+      throw new \Exception( 'Failed to load '.$path );
 			// $this->content =  file_get_contents($path);
+    }
+    else
+    {
+      $this->content = $content = $this->getRequire( $path, $data );
+    }
 
-		}
-		else {
-			throw new \Exception( 'Failed to load '.$path );
-		}
-		$content = $this->content;
 
+    require APP_ROOT."/views/templates/".$this->template.".php";
 
-		require APP_ROOT."/views/templates/".$this->template.".php";
-
-	}
+  }
 
 
 
     /**
-     * use ob to buffer the output of the file
+     * use ob to buff the output of the file
      *
      * @param string $filename	name of the file.
      * @param array $data     	data to send to the file.
@@ -91,13 +95,12 @@ class Base {
      *
      * @return string Value.
      */
-	private function getRequire( $filename = '', $data = array() ) {
-		ob_start();
-		extract( $data );
-		require $filename;
+    private function getRequire( $filename = '', $data = array() ) {
+      ob_start();
+      extract( $data );
+      require $filename;
 
-		return ob_get_clean();
-	}
+      return ob_get_clean();
+    }
 
-
-}
+  }

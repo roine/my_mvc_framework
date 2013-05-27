@@ -18,7 +18,7 @@ class Config{
 		if(method_exists(__CLASS__, $meth))
 			return self::$meth(implode('.', $arg));
 		else
-			throw new Exception('The method '.$meth.' doesn\'t exists');
+			throw new Exception('The method '.$meth.' doesn\'t exist');
 	}
 
 
@@ -36,7 +36,7 @@ class Config{
 				if(isset($temp[$key]))
 					$temp = $temp[$key];
 				else{
-					throw new Exception('The config path doesn\'t exists for '.$key);
+					throw new Exception('The config path doesn\'t exist for '.$key);
 				}
 
 			}
